@@ -41,3 +41,38 @@ if submitted:
 
         with st.expander("📄 Lihat Data Terkini"):
             st.dataframe(df_baru)
+    # Tampilkan data
+st.markdown("## 📄 Data yang Sudah Tersimpan")
+
+try:
+    df_tersimpan = pd.read_csv("data_dosen.csv")
+
+    st.markdown("### 🔎 Filter Data")
+
+    # Input filter
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        filter_daris = st.text_input("Cari Nama Daris")
+    with col2:
+        filter_dosen = st.text_input("Cari Nama Dosen")
+    with col3:
+        filter_tanggal = st.date_input("Filter Tanggal", value=None)
+
+    # Terapkan filter
+    df_filtered = df_tersimpan.copy()
+
+    if filter_daris:
+        df_filtered = df_filtered[df_filtered['Nama Daris'].str.contains(filter_daris, case=False, na=False)]
+
+    if filter_dosen:
+        df_filtered = df_filtered[df_filtered['Nama Dosen'].str.contains(filter_dosen, case=False, na=False)]
+
+    if filter_tanggal:
+        df_filtered = df_filtered[df_filtered['Tanggal'] == filter_tanggal.strftime("%Y-%m-%d")]
+
+    st.markdown("### 📋 Hasil Filter")
+    st.dataframe(df_filtered)
+
+except FileNotFoundError:
+    st.info("Belum ada data yang tersimpan.")
+
