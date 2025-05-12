@@ -12,7 +12,7 @@ with st.form("form_input"):
     nama_dosen = st.text_input("👨‍🏫 Nama Dosen")
     tanggal = st.date_input("📅 Tanggal", format="DD-MM-YYYY")
     waktu = st.time_input("⏰ Waktu")
-    lokasi = st.radio("📍 Lokasi", ["Offline", "Online"])
+    lokasi = st.radio("📍 Lokasi", ["KAMPUS 1", "KAMPUS 2", "KAMPUS 3", "Online"])
 
     submitted = st.form_submit_button("Simpan Data")
 
